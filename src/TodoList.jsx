@@ -4,12 +4,20 @@ import TodoItem from "./TodoItem.jsx";
 import { v4 as uuidv4 } from 'uuid';
 
 export default function TodoList(){
-    const [todos,setTodos]=useState(JSON.parse(localStorage.getItem("todos")));
+    // const [todos,setTodos]=useState(JSON.parse(localStorage.getItem("todos")));
+    const [todos,setTodos]=useState(()=>{
+        const data=localStorage.getItem("todos");
+        return data?JSON.parse(data):[{task:"Learn React 💛", id:uuidv4(), completed:false}];
+    });
     const [newTodo,setNewTodo]=useState("");
     const [edit,setEdit]=useState({});
 
+    useEffect(() => {
+        localStorage.setItem("todos", JSON.stringify(todos));
+    }, [todos]);
+
     let addList=()=>{
-        if(newTodo!="") setTodos((prevTodo)=>{return [...prevTodo,{task: newTodo,id: uuidv4(),completed:false}]});
+        if(newTodo!=="") setTodos((prevTodo)=>{return [...prevTodo,{task: newTodo,id: uuidv4(),completed:false}]});
         setNewTodo("");
     }
     
@@ -23,7 +31,7 @@ export default function TodoList(){
     }
     
     let editList=()=>{
-        if(newTodo!="" && edit){
+        if(newTodo!="" && edit.edit){
             setTodos((prevTodo)=>{
                 return prevTodo.map((item)=>{
                     if(item.id===edit.id){
@@ -51,7 +59,8 @@ export default function TodoList(){
 }
 
 let handleSubmit=(e)=>{
-    e.preventDefault()
+    e.preventDefault();
+    (!edit.edit) ? addList() : editList();
 }
 
 let handleInput=(e)=>{
@@ -60,15 +69,14 @@ let handleInput=(e)=>{
 
 return (
     <>
-    {localStorage.setItem("todos",JSON.stringify(todos))}
         <div className="cointainer">
             <h1>To-Do List</h1>
             <form onSubmit={handleSubmit}>
                 <input type="text" placeholder='Enter the To-Do' onChange={handleInput} value={newTodo}/>&nbsp;&nbsp;&nbsp;&nbsp;
                 {!edit.edit?
-                <button type='submit' onClick={addList}>Save</button>
+                <button type='submit'>Save</button>
                 :
-                <button type='submit' onClick={editList}>Edit</button>
+                <button type='submit'>Edit</button>
                 }
             </form>
             <br /><br /><hr />
