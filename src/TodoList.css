@@ -1,0 +1,86 @@
+:root {
+    --text-gradient: linear-gradient(61deg, #217BFE 0.0%, #078EFB 27.0%, #A190FF 78.0%, #BD99FE 100.0%);
+    --gradient-linear: linear-gradient(53deg, #0260FF 9.29%, #40A2FF 48.23%, #A8BEFF 82.56%);
+    --text-color-gradient: var(--text-gradient, var(--gradient-linear));
+
+    --button-gradient: linear-gradient(15deg, #217BFE 1.02%, #078EFB 28.51%, #A190FF 80.14%, #BD99FE 102.85%);
+    --button-fill: var(--button-gradient);
+    --primary-button-gradient: linear-gradient(52deg, #0844ff 11.5%, #64b8fb 129.52%);
+    --button-background: var(--button-fill, var(--primary-button-gradient));
+}
+
+.cointainer{
+    box-sizing: border-box;
+    width: 80%;
+    max-width: 650px;
+    padding: 0 2rem;
+    border-radius: 1rem;
+    background-color: #242424;
+}
+
+ul{
+    margin: 0;
+    padding: 0;
+    font-weight: 500;
+    height: 58vh;
+    overflow-y: scroll;
+}
+ul:hover::-webkit-scrollbar-thumb{
+        background: #5a5a5a; 
+}
+.edit,.delete{
+    height: 20px;
+    cursor: pointer;
+}
+
+.place{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: 15px;
+    width: 100%;
+}
+
+::-webkit-scrollbar {
+    width: 7px; 
+}
+    
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+}
+
+.list{
+    width: 100%;
+    list-style: none;
+    gap: '15px';
+}
+
+@media only screen and (max-width: 550px) {
+    .cointainer{
+        width: 95%;
+    }
+    input{
+        width: 45%;
+    }
+}
+@media only screen and (max-width: 475px) {
+    #root{
+        margin: 0;
+        padding: 0;
+        width: 100vw;
+        height: 100vh;
+    }
+    .cointainer{
+        border-radius: 0;
+        min-width: 100vw;
+        min-height: 100vh;
+    }
+    ul{
+        height: 65vh;
+    }
+}
+@media only screen and (max-width: 390px) {
+    .cointainer{
+        min-width: 100vw;
+    }
+}
